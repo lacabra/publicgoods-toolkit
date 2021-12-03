@@ -15,14 +15,16 @@ jobs:
           sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra;
           wget https://github.com/jgm/pandoc/releases/download/2.16.2/pandoc-2.16.2-1-amd64.deb
           sudo dpkg -i pandoc-2.16.2-1-amd64.deb
-      - name: Generate build artifacts
-        run: cd pdf && make
-      - name: Create Release
+      - name: Create release
         id: release
         uses: rymndhng/release-on-push-action@master
         with:
           bump_version_scheme: patch
           tag_prefix: v
+      - name: Generate build artifacts
+        run: cd pdf && make
+        env:
+          PDF_VERSION: ${{ steps.release.outputs.tag_name }}
       - name: Check Output Parameters
         run: |
           echo "Got tag name ${{ steps.release.outputs.tag_name }}"
