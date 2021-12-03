@@ -101,5 +101,5 @@ pdf: pdf-preamble $(SOURCES)
                 --toc                                                     \
                 --toc-depth=5                                             \
                 --number-sections                                         \
-                -o publicgoods-toolkit-v$(VERSION).pdf                    \
+                -o publicgoods-toolkit.pdf                    \
                 .everything.md

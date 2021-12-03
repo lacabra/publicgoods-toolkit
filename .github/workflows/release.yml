@@ -27,10 +27,11 @@ jobs:
         run: |
           echo "Got tag name ${{ steps.release.outputs.tag_name }}"
           echo "Got release version ${{ steps.release.outputs.version }}"
-      - name: Upload the artifacts
-        uses: skx/github-action-publish-binaries@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload the artifacts to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          args: 'pdf/*.pdf'
-          releaseId: ${{ steps.release.outputs.tag_name }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: 'pdf/publicgoods-toolkit.pdf'
+          asset_name: 'publicgoods-toolkit.pdf'
+          overwrite: true
+          tag: ${{ steps.release.outputs.tag_name }}
