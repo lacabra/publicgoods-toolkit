@@ -9,10 +9,19 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v2
       - name: Install dependencies
-        run: sudo apt-get install -y pandoc texlive-latex-base texlive-latex-recommended texlive-latex-extra
-      - name: Update TeX
-        run: tlmgr init-usertree && tlmgr update --self
-      - name: Install required TeX dependencies
-        run: sudo tlmgr install titlesec
+        run: |
+          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra;
+          wget https://github.com/jgm/pandoc/releases/download/2.16.2/pandoc-2.16.2-1-amd64.deb
+          sudo dpkg -i pandoc-2.16.2-1-amd64.deb
+      # - name: Update TeX
+      #   run: tlmgr init-usertree && tlmgr update --self
+      # - name: Install required TeX dependencies
+      #   run: sudo tlmgr install titlesec
       - name: Generate build artifacts
         run: cd pdf && make
+      - name: Upload the artifacts
+        uses: skx/github-action-publish-binaries@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: 'pdf/*.pdf'
