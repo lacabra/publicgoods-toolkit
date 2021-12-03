@@ -11,7 +11,7 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install -y pandoc texlive-latex-base texlive-latex-recommended texlive-latex-extra
       - name: Update TeX
-        run: sudo tlmgr update --self
+        run: tlmgr init-usertree && tlmgr update --self
       - name: Install required TeX dependencies
         run: sudo tlmgr install titlesec
       - name: Generate build artifacts
