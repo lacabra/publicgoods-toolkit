@@ -2,13 +2,7 @@ name: release
 
 on: push
 
-jobs:
-  release-on-push:
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      
+jobs: 
   build:
     runs-on: ubuntu-latest
     env:
