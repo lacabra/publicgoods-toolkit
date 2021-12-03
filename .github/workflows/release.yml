@@ -1,0 +1,9 @@
+on: push
+
+jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@master
+      - name: Generate build artifacts
+        run: cd pdf && make
